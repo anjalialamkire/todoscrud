@@ -1,0 +1,57 @@
+
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="todoItem">Todo Item</label>
+                        <input #todoItem
+                         type="text" 
+                         class="form-control"
+                          id="todoItem">      
+                    </div>
+
+                    <button *ngIf="!isInEditMode"
+                    (click)="onTodoAdd(todoItem)"
+                    class="btn btn-sm w-100 btn-outline-primary">
+                        Add Todo
+                    </button>
+
+                    <button *ngIf="isInEditMode"
+                      (click)="onTodoUpdate(todoItem)"
+                     class="btn btn-sm w-100 btn-outline-primary btn-block">
+                        Update Todo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-group" *ngIf="todosArray.length > 0; else noTodos">
+                        <li 
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let todo of todosArray">
+                        <strong>{{todo.todoItem}}</strong>
+                        <div>
+                            <button
+                            (click)="onTodoEdit(todo)"
+                            class="btn btn-outline-info  btn-sm mr-2"> Edit </button>
+                            <button 
+                               (click)="onTodoRemove(todo.todoId)"
+                            class="btn btn-outline-danger">Remove</button>
+                       </div>
+                    </li>
+                    </ul>
+
+                    <ng-template #noTodos>
+                      <p class="alert alert-info">No todos</p>
+                  </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
