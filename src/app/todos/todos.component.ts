@@ -1,6 +1,7 @@
 
 import { Component, ElementRef, OnInit, ViewChild,} from "@angular/core";
 import { Itodos } from "../modules/todos";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
     selector:'app-todos',
@@ -22,7 +23,7 @@ export class TodosComponent implements OnInit{
 @ViewChild('todoItem') todoItemRef!:ElementRef;
 
 
-constructor  () {}
+constructor  (private _matSnackBar:MatSnackBar) {}
 
 ngOnInit (): void{}
     onTodoAdd (todoItemControl:HTMLInputElement){
@@ -49,6 +50,16 @@ ngOnInit (): void{}
         //REMOVE OBJECT FROM ARRAY
 
           this.todosArray.splice(GET_INDEX,1)
+          this._matSnackBar.open(
+            `the todo object with id ${todoId}is removed succesfully !!!`,
+            'close',
+            {
+                duration:3000,
+                horizontalPosition:'left',
+                verticalPosition:'top'
+            }
+        )
+
     }
 
 
@@ -85,6 +96,16 @@ ngOnInit (): void{}
         this.todosArray[GET_INDEX] = UPDATED_OBJ
         
         this.isInEditMode = false
+
+        this._matSnackBar.open(
+            `the todo object with id ${UPDATE_ID} is updated succesfully !!!`,
+            'close',
+            {
+                duration:3000,
+                horizontalPosition:'left',
+                verticalPosition:'top'
+            }
+        )
 
       }   
      }
